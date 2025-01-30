@@ -7,6 +7,9 @@ public class CoffeeShop {
         double totalCost = 0.0;
         String receipt = "---- Coffee Order Receipt ----\n";
 
+        // Array to store quantities for each coffee type
+        int[] quantities = new int[4]; // Index 0: Espresso, 1: Latte, 2: Cappuccino, 3: Mocha
+
         while (true) {
             String menu = String.format("""
                     --- Coffee Menu ---
@@ -33,32 +36,20 @@ public class CoffeeShop {
             System.out.print("Enter quantity: ");
             int numOfQuant = in.nextInt();
 
-            double price = 0.0;
-            String coffeeName = "";
+            // Update the quantity for the selected coffee type
+            quantities[numOfOrder - 1] += numOfQuant;
+        }
 
-            switch (numOfOrder) {
-                case 1 -> {
-                    price = 50.0;
-                    coffeeName = "Espresso";
-                }
-                case 2 -> {
-                    price = 70.0;
-                    coffeeName = "Latte";
-                }
-                case 3 -> {
-                    price = 65.0;
-                    coffeeName = "Cappuccino";
-                }
-                case 4 -> {
-                    price = 80.0;
-                    coffeeName = "Mocha";
-                }
+        // Calculate the total cost and generate the receipt
+        String[] coffeeNames = {"Espresso", "Latte", "Cappuccino", "Mocha"};
+        double[] prices = {50.0, 70.0, 65.0, 80.0};
+
+        for (int i = 0; i < quantities.length; i++) {
+            if (quantities[i] > 0) {
+                double itemCost = prices[i] * quantities[i];
+                totalCost += itemCost;
+                receipt += String.format("%d x %s @ %.2f each = %.2f PHP\n", quantities[i], coffeeNames[i], prices[i], itemCost);
             }
-
-            double itemCost = price * numOfQuant;
-            totalCost += itemCost;
-
-            receipt += String.format("%d x %s @ %.2f each = %.2f PHP\n", numOfQuant, coffeeName, price, itemCost);
         }
 
         double vat = totalCost * 0.12;
@@ -83,4 +74,3 @@ public class CoffeeShop {
         }
     }
 }
-
