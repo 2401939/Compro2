@@ -1,0 +1,9 @@
+---- Coffee Order Receipt ----
+2 x Espresso @ 50.00 each = 100.00 PHP
+1 x Latte @ 70.00 each = 70.00 PHP
+2 x Mocha @ 80.00 each = 160.00 PHP
+---------------------------------
+Subtotal: 330.00 PHP
+VAT (12%): 39.60 PHP
+Grand Total: 369.60 PHP
+----------------------------------
