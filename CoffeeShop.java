@@ -9,9 +9,16 @@ public class CoffeeShop {
 
         // Array to store quantities for each coffee type
         int[] quantities = new int[4]; // Index 0: Espresso, 1: Latte, 2: Cappuccino, 3: Mocha
+        // Coffee data stored in a 2D array (Row 0: Prices, Row 1: Quantities)
+        double[][] coffeeData = {
+                {50.0, 70.0, 65.0, 80.0}, // Prices
+                {0, 0, 0, 0}              // Quantities (initialized to 0)
+        };
+        String[] coffeeNames = {"Espresso", "Latte", "Cappuccino", "Mocha"};
+
 
         while (true) {
-            String menu = String.format("""
+            System.out.println("""
                     --- Coffee Menu ---
                     1. Espresso - 50.0 PHP
                     2. Latte - 70.0 PHP
@@ -20,8 +27,12 @@ public class CoffeeShop {
                     0. Finish Order
                     """);
 
-            System.out.println(menu);
             System.out.print("Choose your coffee (1-4, or 0 to finish): ");
+            if (!in.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a number.");
+                in.next(); // Discard invalid input
+                continue;
+            }
             int numOfOrder = in.nextInt();
 
             if (numOfOrder == 0) {
@@ -34,6 +45,11 @@ public class CoffeeShop {
             }
 
             System.out.print("Enter quantity: ");
+            if (!in.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a valid quantity.");
+                in.next();
+                continue;
+            }
             int numOfQuant = in.nextInt();
 
             // Update the quantity for the selected coffee type
@@ -50,6 +66,24 @@ public class CoffeeShop {
                 totalCost += itemCost;
                 receipt += String.format("%d x %s @ %.2f each = %.2f PHP\n", quantities[i], coffeeNames[i], prices[i], itemCost);
             }
+
+            if (numOfQuant <= 0) {
+                System.out.println("Quantity must be greater than zero. Try again.");
+                continue;
+            }
+
+            // Update the quantity in the 2D array
+            coffeeData[1][numOfOrder - 1] += numOfQuant;
+        }
+
+        // Calculate the total cost and generate the receipt
+        for (int i = 0; i < coffeeNames.length; i++) {
+            if (coffeeData[1][i] > 0) {
+                double itemCost = coffeeData[0][i] * coffeeData[1][i];
+                totalCost += itemCost;
+                receipt += String.format("%d x %s @ %.2f each = %.2f PHP\n",
+                        (int) coffeeData[1][i], coffeeNames[i], coffeeData[0][i], itemCost);
+            }
         }
 
         double vat = totalCost * 0.12;
@@ -60,11 +94,37 @@ public class CoffeeShop {
                 Subtotal: %.2f PHP
                 VAT (12%%): %.2f PHP
                 Grand Total: %.2f PHP
-                ----------------------------------
                 """, totalCost, vat, grandTotal);
+
+        // Payment Process
+        double payment = 0.0;
+        while (true) {
+            System.out.print("\nEnter payment amount: ");
+            if (!in.hasNextDouble()) {
+                System.out.println("Invalid input. Please enter a valid amount.");
+                in.next(); // Discard invalid input
+                continue;
+            }
+            payment = in.nextDouble();
+
+            if (payment < grandTotal) {
+                System.out.printf("Insufficient payment. You need %.2f PHP more.\n", grandTotal - payment);
+            } else {
+                break;
+            }
+        }
+
+        double change = payment - grandTotal;
+        receipt += String.format("""
+                Payment: %.2f PHP
+                Change: %.2f PHP
+                ----------------------------------
+                """, payment, change);
+
         System.out.println();
         System.out.println(receipt);
 
+        // Save receipt to file
         try (PrintWriter writer = new PrintWriter(new FileWriter("CoffeeReceipt.txt"))) {
             writer.print(receipt);
             System.out.println("Receipt saved to CoffeeReceipt.txt");
@@ -73,4 +133,3 @@ public class CoffeeShop {
             e.printStackTrace();
         }
     }
-}
