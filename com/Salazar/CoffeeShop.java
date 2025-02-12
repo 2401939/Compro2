@@ -1,3 +1,4 @@
+package com.Salazar;
 import java.io.*;
 import java.util.*;
 
@@ -57,7 +58,6 @@ public class CoffeeShop {
         }
 
         // Calculate the total cost and generate the receipt
-        String[] coffeeNames = {"Espresso", "Latte", "Cappuccino", "Mocha"};
         double[] prices = {50.0, 70.0, 65.0, 80.0};
 
         for (int i = 0; i < quantities.length; i++) {
@@ -133,3 +133,4 @@ public class CoffeeShop {
             e.printStackTrace();
         }
     }
+}
