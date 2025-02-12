@@ -1,8 +1,8 @@
 package com.Salazar;
 public class Main {
     public static void main(String[] args) {
-        Coffee espresso = new Coffee("Espresso", "Arabica", "Small", 3.00, "Dark", "Colombia", false, 10, new String[]{"Chocolate", "Nutty"}, "Espresso");
-        Coffee latte = new Coffee("Latte", "Robusta", "Medium", 4.50, "Medium", "Brazil", false, 5, new String[]{"Creamy", "Vanilla"}, "Drip");
+        Coffee espresso = new Coffee("Espresso", "Arabica", "Small", 70.00, "Dark", "Colombia", false, 10, new String[]{"Chocolate", "Nutty"}, "Espresso");
+        Coffee latte = new Coffee("Latte", "Robusta", "Medium", 80.00, "Medium", "Brazil", false, 5, new String[]{"Creamy", "Vanilla"}, "Drip");
 
         espresso.calculatePrice("medium");
         System.out.println("Espresso stock available: " + espresso.checkStock());

@@ -36,7 +36,7 @@ class Coffee {
                 this.price = price * 1.5;
                 break;
         }
-        System.out.println("Price for " + size + " " + name + ": $" + this.price);
+        System.out.println("Price for " + size + " " + name + ": PHP" + this.price);
     }
 
     public boolean checkStock() {
@@ -72,6 +72,6 @@ class Coffee {
 
     public void discount(double percentage) {
         this.price -= this.price * (percentage / 100);
-        System.out.println("New discounted price: $" + this.price);
+        System.out.println("New discounted price: PHP" + this.price);
     }
 }
