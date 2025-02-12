@@ -10,13 +10,10 @@ public class CoffeeShop {
 
         // Array to store quantities for each coffee type
         int[] quantities = new int[4]; // Index 0: Espresso, 1: Latte, 2: Cappuccino, 3: Mocha
-        // Coffee data stored in a 2D array (Row 0: Prices, Row 1: Quantities)
-        double[][] coffeeData = {
-                {50.0, 70.0, 65.0, 80.0}, // Prices
-                {0, 0, 0, 0}              // Quantities (initialized to 0)
-        };
-        String[] coffeeNames = {"Espresso", "Latte", "Cappuccino", "Mocha"};
 
+        // Coffee prices
+        double[] prices = {50.0, 70.0, 65.0, 80.0};
+        String[] coffeeNames = {"Espresso", "Latte", "Cappuccino", "Mocha"};
 
         while (true) {
             System.out.println("""
@@ -53,6 +50,7 @@ public class CoffeeShop {
             }
             int numOfQuant = in.nextInt();
 
+<<<<<<< HEAD
             // Update the quantity for the selected coffee type
             quantities[numOfOrder - 1] += numOfQuant;
         }
@@ -67,22 +65,23 @@ public class CoffeeShop {
                 receipt += String.format("%d x %s @ %.2f each = %.2f PHP\n", quantities[i], coffeeNames[i], prices[i], itemCost);
             }
 
+=======
+>>>>>>> abb363b (finalll)
             if (numOfQuant <= 0) {
                 System.out.println("Quantity must be greater than zero. Try again.");
                 continue;
             }
 
-            // Update the quantity in the 2D array
-            coffeeData[1][numOfOrder - 1] += numOfQuant;
+            // Update the quantity for the selected coffee type
+            quantities[numOfOrder - 1] += numOfQuant;
         }
 
         // Calculate the total cost and generate the receipt
-        for (int i = 0; i < coffeeNames.length; i++) {
-            if (coffeeData[1][i] > 0) {
-                double itemCost = coffeeData[0][i] * coffeeData[1][i];
+        for (int i = 0; i < quantities.length; i++) {
+            if (quantities[i] > 0) {
+                double itemCost = prices[i] * quantities[i];
                 totalCost += itemCost;
-                receipt += String.format("%d x %s @ %.2f each = %.2f PHP\n",
-                        (int) coffeeData[1][i], coffeeNames[i], coffeeData[0][i], itemCost);
+                receipt += String.format("%d x %s @ %.2f each = %.2f PHP\n", quantities[i], coffeeNames[i], prices[i], itemCost);
             }
         }
 
@@ -132,5 +131,11 @@ public class CoffeeShop {
             System.out.println("An error occurred while saving the receipt.");
             e.printStackTrace();
         }
+
+        in.close(); // Close the scanner to prevent resource leaks
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> abb363b (finalll)
