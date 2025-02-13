@@ -1,42 +1,47 @@
 package com.Salazar;
-class Coffee {
-    String name;
-    String type;
-    String size;
-    double price;
-    String roastLevel;
-    String origin;
-    boolean isDecaf;
-    int stock;
-    String[] flavorNotes;
-    String brewMethod;
 
-    public Coffee(String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, String[] flavorNotes, String brewMethod) {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Coffee {
+    // Properties (Attributes)
+    private String name;
+    private String type;
+    private String size;
+    private double price; // Changed back to price
+    private String roastLevel;
+    private String origin;
+    private boolean isDecaf;
+    private int stock; // Assuming stock is an integer representing quantity
+    private List<String> flavorNotes;
+    private String brewMethod;
+
+    // Constructor
+    public Coffee(String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, String brewMethod) {
         this.name = name;
         this.type = type;
         this.size = size;
-        this.price = price;
+        this.price = price; // Updated to use price
         this.roastLevel = roastLevel;
         this.origin = origin;
         this.isDecaf = isDecaf;
         this.stock = stock;
-        this.flavorNotes = flavorNotes;
+        this.flavorNotes = new ArrayList<>();
         this.brewMethod = brewMethod;
     }
 
-    public void calculatePrice(String size) {
+    // Methods (Actions)
+    public double calculatePrice(String size) {
         switch (size.toLowerCase()) {
             case "small":
-                this.price = price;
-                break;
+                return price; // Price for small
             case "medium":
-                this.price = price * 1.2;
-                break;
+                return price * 1.2; // 20% increase for medium
             case "large":
-                this.price = price * 1.5;
-                break;
+                return price * 1.5; // 50% increase for large
+            default:
+                return price; // Default to base price if size is unknown
         }
-        System.out.println("Price for " + size + " " + name + ": PHP" + this.price);
     }
 
     public boolean checkStock() {
@@ -44,34 +49,67 @@ class Coffee {
     }
 
     public void addFlavor(String note) {
-        String[] newFlavorNotes = new String[flavorNotes.length + 1];
-        System.arraycopy(flavorNotes, 0, newFlavorNotes, 0, flavorNotes.length);
-        newFlavorNotes[flavorNotes.length] = note;
-        flavorNotes = newFlavorNotes;
-        System.out.println("Added flavor note: " + note);
+        flavorNotes.add(note);
     }
 
     public void updateStock(int quantity) {
         this.stock += quantity;
-        System.out.println("Stock updated. New stock: " + this.stock);
     }
 
     public String describe() {
-        return "A " + roastLevel + " roast " + name + " coffee with " + String.join(", ", flavorNotes) + " notes.";
+        return "A " + roastLevel + " roast coffee from " + origin + " with flavor notes: " + String.join(", ", flavorNotes);
     }
 
     public void setDecaf(boolean isDecaf) {
         this.isDecaf = isDecaf;
-        System.out.println(name + " is now " + (isDecaf ? "decaf" : "regular"));
     }
 
     public void changeRoastLevel(String newRoastLevel) {
         this.roastLevel = newRoastLevel;
-        System.out.println("Roast level changed to: " + newRoastLevel);
     }
 
     public void discount(double percentage) {
-        this.price -= this.price * (percentage / 100);
-        System.out.println("New discounted price: PHP" + this.price);
+        price -= price * (percentage / 100);
+    }
+
+    // Getters for displaying coffee details
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public double getPrice() { // Updated getter to reflect price
+        return price;
+    }
+
+    public String getRoastLevel() {
+        return roastLevel;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public boolean isDecaf() {
+        return isDecaf;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public List<String> getFlavorNotes() {
+        return flavorNotes;
+    }
+
+    public String getBrewMethod() {
+        return brewMethod;
     }
 }

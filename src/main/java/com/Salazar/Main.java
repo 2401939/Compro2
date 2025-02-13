@@ -1,25 +1,29 @@
 package com.Salazar;
+
 public class Main {
     public static void main(String[] args) {
-        Coffee espresso = new Coffee("Espresso", "Arabica", "Small", 70.00, "Dark", "Colombia", false, 10, new String[]{"Chocolate", "Nutty"}, "Espresso");
-        Coffee latte = new Coffee("Latte", "Robusta", "Medium", 80.00, "Medium", "Brazil", false, 5, new String[]{"Creamy", "Vanilla"}, "Drip");
+        // Create two Coffee objects
+        Coffee coffee1 = new Coffee("Espresso", "Arabica", "Small", 50.0, "Dark", "Colombia", false, 10, "Espresso");
+        Coffee coffee2 = new Coffee("Latte", "Robusta", "Medium", 75.0, "Medium", "Brazil", true, 5, "Drip");
 
-        espresso.calculatePrice("medium");
-        System.out.println("Espresso stock available: " + espresso.checkStock());
-        espresso.addFlavor("Caramel");
-        espresso.updateStock(-2);
-        System.out.println(espresso.describe());
-        espresso.setDecaf(true);
-        espresso.changeRoastLevel("Light");
-        espresso.discount(10);
+        // Call methods on coffee1
+        System.out.println("Coffee Name: " + coffee1.getName());
+        System.out.println("Price for Small: ₱" + coffee1.calculatePrice("Small")); // Price for small
+        System.out.println("In Stock: " + coffee1.checkStock());
+        coffee1.addFlavor("Chocolate");
+        coffee1.addFlavor("Nutty");
+        System.out.println("Description: " + coffee1.describe());
+        coffee1.discount(10); // Apply a 10% discount
+        System.out.println("Price after discount: ₱" + coffee1.getPrice());
 
-        latte.calculatePrice("large");
-        System.out.println("Latte stock available: " + latte.checkStock());
-        latte.addFlavor("Hazelnut");
-        latte.updateStock(3);
-        System.out.println(latte.describe());
-        latte.setDecaf(false);
-        latte.changeRoastLevel("Dark");
-        latte.discount(15);
+        // Call methods on coffee2
+        System.out.println("\nCoffee Name: " + coffee2.getName());
+        System.out.println("Base Price: ₱" + coffee2.getPrice()); // Show base price
+        System.out.println("Price for Medium: ₱" + coffee2.calculatePrice("Medium")); // Price for medium
+        System.out.println("In Stock: " + coffee2.checkStock());
+        coffee2.addFlavor("Citrus");
+        System.out.println("Description: " + coffee2.describe());
+        coffee2.discount(15); // Apply a 15% discount
+        System.out.println("Price after discount: ₱" + coffee2.getPrice());
     }
 }
