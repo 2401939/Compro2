@@ -9,15 +9,11 @@ public class CoffeeShop {
         double totalCost = 0.0;
         String receipt = "---- Coffee Order Receipt ----\n";
 
-        // 2D array: Each row represents a coffee type.
-        // Column 0: Price, Column 1: Quantity
-        double[][] coffeeData = {
-                {50.0, 0},  // Espresso
-                {70.0, 0},  // Latte
-                {65.0, 0},  // Cappuccino
-                {80.0, 0}   // Mocha
-        };
+        // Array to store quantities for each coffee type
+        int[] quantities = new int[4]; // Index 0: Espresso, 1: Latte, 2: Cappuccino, 3: Mocha
 
+        // Coffee prices
+        double[] prices = {50.0, 70.0, 65.0, 80.0};
         String[] coffeeNames = {"Espresso", "Latte", "Cappuccino", "Mocha"};
 
         while (true) {
@@ -60,17 +56,16 @@ public class CoffeeShop {
                 continue;
             }
 
-            // Update the quantity in the 2D array
-            coffeeData[numOfOrder - 1][1] += numOfQuant;
+            // Update the quantity for the selected coffee type
+            quantities[numOfOrder - 1] += numOfQuant;
         }
 
         // Generate receipt and calculate total cost
-        for (int i = 0; i < coffeeData.length; i++) {
-            if (coffeeData[i][1] > 0) {
-                double itemCost = coffeeData[i][0] * coffeeData[i][1];
+        for (int i = 0; i < quantities.length; i++) {
+            if (quantities[i] > 0) {
+                double itemCost = prices[i] * quantities[i];
                 totalCost += itemCost;
-                receipt += String.format("%d x %s @ %.2f each = %.2f PHP\n",
-                        (int) coffeeData[i][1], coffeeNames[i], coffeeData[i][0], itemCost);
+                receipt += String.format("%d x %s @ %.2f each = %.2f PHP\n", quantities[i], coffeeNames[i], prices[i], itemCost);
             }
         }
 
